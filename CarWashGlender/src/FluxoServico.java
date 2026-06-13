@@ -45,12 +45,15 @@ public class FluxoServico {
         return valorCobrado;
     }
 
-    public void registrarPagamento(String formaPagamento) {
-        if (formaPagamento.equalsIgnoreCase("PIX")) {
-            this.valorCobrado = this.valorCobrado * 0.90;
-        }
-        this.statusPagamento = "PAGO";
+public void registrarPagamento(String formaPagamento) {
+    if ("PIX".equalsIgnoreCase(formaPagamento)) {
+        this.valorCobrado *= 0.90;
+    } else if ("DINHEIRO".equalsIgnoreCase(formaPagamento)) {
+        this.valorCobrado *= 0.95;
     }
+
+    this.statusPagamento = "PAGO";
+}
 
     public void exibirDados() {
         System.out.println("Veículo " + veiculo.getPlaca() + "Profissional: " + profissional.getNome() + "Valor " + valorCobrado + "Status " + statusPagamento);
