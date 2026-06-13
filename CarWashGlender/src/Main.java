@@ -154,7 +154,7 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("--- Serviços Pendentes ---");
+                    System.out.println("Serviços Pendentes");
                     for (int i = 0; i < fluxos.size(); i++) {
                         if (fluxos.get(i).getStatusPagamento().equals("PENDENTE")) {
                             System.out.print("[" + i + "] ");
