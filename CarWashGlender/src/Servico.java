@@ -23,7 +23,9 @@ public abstract class Servico {
         this.precoBase = precoBase;
     }
 
-    public abstract double calcularPrecoFinal();
+    public double calcularPrecoFinal() {
+    return precoBase;
+}
 
     public void exibirDados() {
         System.out.println("Serviço: " + nome + " | Preço Base: R$ " + precoBase);
