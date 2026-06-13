@@ -28,6 +28,6 @@ public abstract class Servico {
 }
 
     public void exibirDados() {
-        System.out.println("Serviço: " + nome + " | Preço Base: R$ " + precoBase);
+        System.out.println("Serviço " + nome + "Preço base " + precoBase);
     }
 }
