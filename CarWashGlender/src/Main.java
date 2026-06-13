@@ -180,9 +180,9 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("\n==================================");
-                    System.out.println("Faturamento Total do Caixa: R$ " + faturamentoTotal);
-                    System.out.println("==================================");
+                
+                    System.out.println("Faturamento Total do Caixa: " + faturamentoTotal);
+        
                     break;
 
                 case 0:
