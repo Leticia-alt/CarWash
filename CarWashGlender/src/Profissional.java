@@ -34,6 +34,6 @@ public class Profissional {
     }
 
     public void exibirDados() {
-        System.out.println("Nome: " + nome + " | Cargo: " + cargo);
+        System.out.println("Nome " + nome + "Cargo " + cargo);
     }
 }
