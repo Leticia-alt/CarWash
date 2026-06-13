@@ -34,6 +34,6 @@ public class Cliente {
     }
 
     public void exibirDados() {
-        System.out.println("Nome: " + nome + " | CPF: " + cpf + " | Tel: " + telefone);
+        System.out.println("Nome " + nome + "CPf " + cpf + "Telefone " + telefone);
     }
 }
