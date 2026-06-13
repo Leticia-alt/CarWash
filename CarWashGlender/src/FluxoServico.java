@@ -53,6 +53,6 @@ public class FluxoServico {
     }
 
     public void exibirDados() {
-        System.out.println("Veículo: " + veiculo.getPlaca() + " | Profissional: " + profissional.getNome() + " | Valor: R$ " + valorCobrado + " | Status: " + statusPagamento);
+        System.out.println("Veículo " + veiculo.getPlaca() + "Profissional: " + profissional.getNome() + "Valor " + valorCobrado + "Status " + statusPagamento);
     }
 }
