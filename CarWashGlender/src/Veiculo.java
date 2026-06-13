@@ -44,6 +44,6 @@ public class Veiculo {
     }
 
     public void exibirDados() {
-        System.out.println("Placa: " + placa + " | Modelo: " + modelo + " | Proprietário: " + proprietario.getNome());
+        System.out.println("Placa " + placa + " Modelo " + modelo + "Proprietário " + proprietario.getNome());
     }
 }
