@@ -1,0 +1,206 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    private static List<Cliente> clientes = new ArrayList<>();
+    private static List<Veiculo> veiculos = new ArrayList<>();
+    private static List<Profissional> profissionais = new ArrayList<>();
+    private static List<Servico> servicos = new ArrayList<>();
+    private static List<FluxoServico> fluxos = new ArrayList<>();
+    private static double faturamentoTotal = 0.0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        profissionais.add(new Profissional("Carlos", "Lavador", "9999-1111"));
+        servicos.add(new LimpezaSimples("Lavação Simples", 50.0, 10.0));
+        servicos.add(new EsteticaAvancada("Polimento Técnico", 200.0, 1.5));
+
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\nMenu de opçoes");
+            System.out.println("1. Cadastrar Cliente e Veículo");
+            System.out.println("2. Gerenciar Profissionais (CRUD)");
+            System.out.println("3. Iniciar Novo Fluxo de Serviço");
+            System.out.println("4. Consultar Serviços/Fluxos");
+            System.out.println("5. Finalizar Serviço e Registrar Pagamento");
+            System.out.println("6. Ver Faturamento Geral");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Nome do Cliente: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("CPF: ");
+                    String cpf = scanner.nextLine();
+                    System.out.print("Telefone: ");
+                    String telefone = scanner.nextLine();
+                    
+                    Cliente cli = new Cliente(nome, cpf, telefone);
+                    clientes.add(cli);
+
+                    System.out.print("Placa do Veículo: ");
+                    String placa = scanner.nextLine();
+                    System.out.print("Modelo: ");
+                    String modelo = scanner.nextLine();
+                    System.out.print("Marca: ");
+                    String marca = scanner.nextLine();
+                    
+                    Veiculo carro = new Veiculo(placa, modelo, marca, cli);
+                    veiculos.add(carro);
+                    System.out.println("Cliente e Veículo cadastrados com sucesso!");
+                    break;
+
+                case 2:
+                    System.out.println("\n1 Cadastrar 2 Editar 3 Excluir 4 Listar");
+                    int subOpcao = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (subOpcao == 1) {
+                        System.out.print("Nome do Profissional: ");
+                        String nomeFuncionario = scanner.nextLine();
+                        System.out.print("Cargo: ");
+                        String cargo = scanner.nextLine();
+                        System.out.print("Telefone: ");
+                        String telefoneFuncionario = scanner.nextLine();
+                        
+                        profissionais.add(new Profissional(nomeFuncionario, cargo, telefoneFuncionario));
+                        System.out.println("Profissional cadastrado!");
+
+                    } else if (subOpcao == 2) {
+                        System.out.println("Lista de Profissionais");
+                        for (int i = 0; i < profissionais.size(); i++) {
+                            System.out.print("[" + i + "] ");
+                            profissionais.get(i).exibirDados();
+                        }
+                        System.out.print("Digite o número do Profissional para editar ");
+                        int opcaoEditar = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (opcaoEditar >= 0 && opcaoEditar < profissionais.size()) {
+                            Profissional p = profissionais.get(opcaoEditar);
+                            System.out.print("Novo nome: ");
+                            p.setNome(scanner.nextLine());
+                            System.out.print("Novo Cargo: ");
+                            p.setCargo(scanner.nextLine());
+                            System.out.println("Dados alterados!");
+                        }
+
+                    } else if (subOpcao == 3) {
+                        System.out.println("lista de Profissionais");
+                        for (int i = 0; i < profissionais.size(); i++) {
+                            System.out.print("[" + i + "] ");
+                            profissionais.get(i).exibirDados();
+                        }
+                        System.out.print("Digite o número do Profissional para excluir: ");
+                        int posicaoExcluir = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (posicaoExcluir >= 0 && posicaoExcluir < profissionais.size()) {
+                            profissionais.remove(posicaoExcluir);
+                            System.out.println("Profissional removido!");
+                        }
+
+                    } else if (subOpcao == 4) {
+                        for (int i = 0; i < profissionais.size(); i++) {
+                            profissionais.get(i).exibirDados();
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Lista de Veículos");
+                    for (int i = 0; i < veiculos.size(); i++) {
+                        System.out.print("[" + i + "] ");
+                        veiculos.get(i).exibirDados();
+                    }
+                    System.out.print("Selecione o número do Veículo: ");
+                    int escolhaVeiculo = scanner.nextInt();
+
+                    System.out.println("Lista de Profissionais");
+                    for (int i = 0; i < profissionais.size(); i++) {
+                        System.out.print("[" + i + "] ");
+                        profissionais.get(i).exibirDados();
+                    }
+                    System.out.print("Selecione o número do Profissional ");
+                    int escolhaProf = scanner.nextInt();
+
+                    System.out.println("Lista de Serviços Disponíveis");
+                    for (int i = 0; i < servicos.size(); i++) {
+                        System.out.print("[" + i + "] ");
+                        servicos.get(i).exibirDados();
+                    }
+                    System.out.print("Selecione o número do Serviço ");
+                    int escolhaServico = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (escolhaVeiculo >= 0 && escolhaVeiculo < veiculos.size() && 
+                        escolhaProf >= 0 && escolhaProf < profissionais.size() && 
+                        escolhaServico >= 0 && escolhaServico < servicos.size()) {
+                        
+                        Veiculo veiculoSelecionado = veiculos.get(escolhaVeiculo);
+                        Profissional profissionalSelecionado = profissionais.get(escolhaProf);
+                        Servico servicoSelecionado = servicos.get(escolhaServico);
+
+                        fluxos.add(new FluxoServico(veiculoSelecionado, profissionalSelecionado, servicoSelecionado));
+                        System.out.println("Fluxo de trabalho iniciado e registrado!");
+                    } else {
+                        System.out.println("Opções inválidas!");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Histórico de Fluxo de Serviços");
+                    for (int i = 0; i < fluxos.size(); i++) {
+                        System.out.print("[" + i + "] ");
+                        fluxos.get(i).exibirDados();
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Serviços Pendentes");
+                    for (int i = 0; i < fluxos.size(); i++) {
+                        if (fluxos.get(i).getStatusPagamento().equals("PENDENTE")) {
+                            System.out.print("[" + i + "] ");
+                            fluxos.get(i).exibirDados();
+                        }
+                    }
+                    System.out.print("Digite o número do Fluxo para finalizar e pagar: ");
+                    int numeroFluxo = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (numeroFluxo >= 0 && numeroFluxo < fluxos.size()) {
+                        FluxoServico fluxoSelecionado = fluxos.get(numeroFluxo);
+                        if (fluxoSelecionado.getStatusPagamento().equals("PENDENTE")) {
+                            System.out.print("Forma de Pagamento (PIX ou DINHEIRO) ");
+                            String forma = scanner.nextLine();
+                            fluxoSelecionado.registrarPagamento(forma);
+                            faturamentoTotal += fluxoSelecionado.getValorCobrado();
+                            System.out.println("Pagamento registrado! Serviço Concluído");
+                        } else {
+                            System.out.println("Este serviço já foi pago!");
+                        }
+                    } else {
+                        System.out.println("Serviço não encontrado.");
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Faturamento Total do Caixa: " + faturamentoTotal);
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do sistema...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+        scanner.close();
+    }
+}
