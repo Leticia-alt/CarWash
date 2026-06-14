@@ -47,9 +47,9 @@ public class FluxoServico {
 
 public void registrarPagamento(String formaPagamento) {
     if ("PIX".equalsIgnoreCase(formaPagamento)) {
-        this.valorCobrado *= 0.90;
+        this.valorCobrado = this.valorCobrado * 0.90;
     } else if ("DINHEIRO".equalsIgnoreCase(formaPagamento)) {
-        this.valorCobrado *= 0.95;
+        this.valorCobrado = this.valorCobrado * 0.95;
     }
 
     this.statusPagamento = "PAGO";
