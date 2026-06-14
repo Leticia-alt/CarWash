@@ -83,7 +83,7 @@ public class Main {
 
                         if (opcaoEditar >= 0 && opcaoEditar < profissionais.size()) {
                             Profissional p = profissionais.get(opcaoEditar);
-                            System.out.print("Novo Nome: ");
+                            System.out.print("Novo nome: ");
                             p.setNome(scanner.nextLine());
                             System.out.print("Novo Cargo: ");
                             p.setCargo(scanner.nextLine());
@@ -91,7 +91,7 @@ public class Main {
                         }
 
                     } else if (subOpcao == 3) {
-                        System.out.println("Lista de Profissionais");
+                        System.out.println("lista de Profissionais");
                         for (int i = 0; i < profissionais.size(); i++) {
                             System.out.print("[" + i + "] ");
                             profissionais.get(i).exibirDados();
@@ -126,7 +126,7 @@ public class Main {
                         System.out.print("[" + i + "] ");
                         profissionais.get(i).exibirDados();
                     }
-                    System.out.print("Selecione o número do Profissional: ");
+                    System.out.print("Selecione o número do Profissional ");
                     int escolhaProf = scanner.nextInt();
 
                     System.out.println("Lista de Serviços Disponíveis");
@@ -134,7 +134,7 @@ public class Main {
                         System.out.print("[" + i + "] ");
                         servicos.get(i).exibirDados();
                     }
-                    System.out.print("Selecione o número do Serviço: ");
+                    System.out.print("Selecione o número do Serviço ");
                     int escolhaServico = scanner.nextInt();
                     scanner.nextLine();
 
@@ -176,11 +176,11 @@ public class Main {
                     if (numeroFluxo >= 0 && numeroFluxo < fluxos.size()) {
                         FluxoServico fluxoSelecionado = fluxos.get(numeroFluxo);
                         if (fluxoSelecionado.getStatusPagamento().equals("PENDENTE")) {
-                            System.out.print("Forma de Pagamento (PIX ou DINHEIRO): ");
+                            System.out.print("Forma de Pagamento (PIX ou DINHEIRO) ");
                             String forma = scanner.nextLine();
                             fluxoSelecionado.registrarPagamento(forma);
                             faturamentoTotal += fluxoSelecionado.getValorCobrado();
-                            System.out.println("Pagamento registrado! Serviço Concluído.");
+                            System.out.println("Pagamento registrado! Serviço Concluído");
                         } else {
                             System.out.println("Este serviço já foi pago!");
                         }
