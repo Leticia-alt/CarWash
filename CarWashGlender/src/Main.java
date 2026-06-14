@@ -19,7 +19,7 @@ public class Main {
 
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("Menu de opçoes");
+            System.out.println("\nMenu de opçoes");
             System.out.println("1. Cadastrar Cliente e Veículo");
             System.out.println("2. Gerenciar Profissionais (CRUD)");
             System.out.println("3. Iniciar Novo Fluxo de Serviço");
@@ -39,8 +39,9 @@ public class Main {
                     String cpf = scanner.nextLine();
                     System.out.print("Telefone: ");
                     String telefone = scanner.nextLine();
-                    Cliente novoCliente = new Cliente(nomeCli, cpf, telCli);
-                    clientes.add(novoCliente);
+                    
+                    Cliente cli = new Cliente(nome, cpf, telefone);
+                    clientes.add(cli);
 
                     System.out.print("Placa do Veículo: ");
                     String placa = scanner.nextLine();
@@ -48,8 +49,9 @@ public class Main {
                     String modelo = scanner.nextLine();
                     System.out.print("Marca: ");
                     String marca = scanner.nextLine();
-                    Veiculo novoVeiculo = new Veiculo(placa, modelo, marca, novoCliente);
-                    veiculos.add(novoVeiculo);
+                    
+                    Veiculo carro = new Veiculo(placa, modelo, marca, cli);
+                    veiculos.add(carro);
                     System.out.println("Cliente e Veículo cadastrados com sucesso!");
                     break;
 
@@ -65,7 +67,8 @@ public class Main {
                         String cargo = scanner.nextLine();
                         System.out.print("Telefone: ");
                         String telefoneFuncionario = scanner.nextLine();
-                        profissionais.add(new Profissional(nomeProf, cargo, telProf));
+                        
+                        profissionais.add(new Profissional(nomeFuncionario, cargo, telefoneFuncionario));
                         System.out.println("Profissional cadastrado!");
 
                     } else if (subOpcao == 2) {
@@ -95,6 +98,7 @@ public class Main {
                         }
                         System.out.print("Digite o número do Profissional para excluir: ");
                         int posicaoExcluir = scanner.nextInt();
+                        scanner.nextLine();
 
                         if (posicaoExcluir >= 0 && posicaoExcluir < profissionais.size()) {
                             profissionais.remove(posicaoExcluir);
@@ -132,13 +136,17 @@ public class Main {
                     }
                     System.out.print("Selecione o número do Serviço: ");
                     int escolhaServico = scanner.nextInt();
+                    scanner.nextLine();
 
-                    if (posV >= 0 && posV < veiculos.size() && posP >= 0 && posP < profissionais.size() && posS >= 0 && posS < servicos.size()) {
-                        Veiculo veiculoSelecionado = veiculos.get(posV);
-                        Profissional profissionalSelecionado = profissionais.get(posP);
-                        Servico servicoSelecionado = servicos.get(posS);
+                    if (escolhaVeiculo >= 0 && escolhaVeiculo < veiculos.size() && 
+                        escolhaProf >= 0 && escolhaProf < profissionais.size() && 
+                        escolhaServico >= 0 && escolhaServico < servicos.size()) {
+                        
+                        Veiculo veiculoSelecionado = veiculos.get(escolhaVeiculo);
+                        Profissional profissionalSelecionado = profissionais.get(escolhaProf);
+                        Servico servicoSelecionado = servicos.get(escolhaServico);
 
-                        fluxos.add(new FluxoServico(veiculoSelecionado, profissionalSelecionado , servicoSelecionado));
+                        fluxos.add(new FluxoServico(veiculoSelecionado, profissionalSelecionado, servicoSelecionado));
                         System.out.println("Fluxo de trabalho iniciado e registrado!");
                     } else {
                         System.out.println("Opções inválidas!");
@@ -165,14 +173,16 @@ public class Main {
                     int numeroFluxo = scanner.nextInt();
                     scanner.nextLine();
 
-                    if (numeroFluxo >= 0 &&  numeroFluxo < fluxos.size()) {
-                        FluxoServico fluxoSelecionado = fluxos.get(numeroFluxo );
-                        if (fluxoSelecionado =.getStatusPagamento().equals("PENDENTE")) {
+                    if (numeroFluxo >= 0 && numeroFluxo < fluxos.size()) {
+                        FluxoServico fluxoSelecionado = fluxos.get(numeroFluxo);
+                        if (fluxoSelecionado.getStatusPagamento().equals("PENDENTE")) {
                             System.out.print("Forma de Pagamento (PIX ou DINHEIRO): ");
                             String forma = scanner.nextLine();
-                            fluxoSelecionado =.registrarPagamento(forma);
-                            faturamentoTotal += fluxoSelecionado =.getValorCobrado();
+                            fluxoSelecionado.registrarPagamento(forma);
+                            faturamentoTotal += fluxoSelecionado.getValorCobrado();
                             System.out.println("Pagamento registrado! Serviço Concluído.");
+                        } else {
+                            System.out.println("Este serviço já foi pago!");
                         }
                     } else {
                         System.out.println("Serviço não encontrado.");
@@ -180,9 +190,7 @@ public class Main {
                     break;
 
                 case 6:
-                
                     System.out.println("Faturamento Total do Caixa: " + faturamentoTotal);
-        
                     break;
 
                 case 0:
